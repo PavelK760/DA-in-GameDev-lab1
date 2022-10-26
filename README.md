@@ -33,68 +33,132 @@
 - ✨Magic ✨
 
 ## Цель работы
-Ознакомиться с основными операторами зыка Python на примере реализации линейной регрессии.
+познакомиться с программными средствами для создания системы машинного обучения и ее интеграции в Unity.
 
 ## Задание 1. Написать программы Hello World на Python и Unity.
-### Пошагово выполнить каждый пункт раздела "ход работы" с описанием и примерами реализации задач
-#### -Для Python в отчете привести скриншоты с демонстрацией сохранения документа google.colab на свой диск с запуском программы, выводящей сообщение Hello World.
-![Снимок](https://user-images.githubusercontent.com/104727697/192782964-dbeff17e-dc74-4abd-b44c-c520d8e3009b.PNG) 
-![Снимок01](https://user-images.githubusercontent.com/104727697/192792145-9825f2bf-5780-43ee-8c36-b2c1b15dee88.PNG)
+#### -Реализовать систему машинного обучения в связке Python - Google-Sheets – Unity. При выполнении задания можно использовать видео-материалы и исходные данные, предоставленные преподавателями курса.
 
+##Ход работы:
 
-#### - Для Unity  в отчете привести скришноты вывода сообщения Hello World в консоль. 
-![Снимок04](https://user-images.githubusercontent.com/104727697/192791649-6f509bf4-cc79-4e93-afec-3e96f53b376f.png)
-![Снимок05](https://user-images.githubusercontent.com/104727697/192793653-59b5f73a-61b6-499b-8e73-03b5b4ceafef.png)
+*Установка необходимых пакетов.
+![image](https://user-images.githubusercontent.com/104727697/198155577-be21425d-c124-46d7-ae7d-87c0dcae629c.png)
 
+*Создание 3 объектов, присвоение им материала, добавление rigidbody и скрипта к шару.
+![Lab3 1 2](https://user-images.githubusercontent.com/104727697/198154792-13fd3f0f-7655-4269-8009-9c65e85a7d97.png)
+![image](https://user-images.githubusercontent.com/104727697/198155651-cf9bb20b-e3a1-4c7a-8a21-15f0739e703c.png)
+
+*Запустк обучения MLAgent в конфигурации rollerball_config.yaml на 3,9,27 копиях ранее созданного Prefab.
+mlagents-learn rollerball_config.yaml --run-id=RollerBall --force
+![Lab3 1 3](https://user-images.githubusercontent.com/104727697/198154798-267a36d0-762a-421d-9048-cba17325b5fa.png)
+![Lab3 1 4](https://user-images.githubusercontent.com/104727697/198154800-0ca20604-1ecf-4ee1-a285-d3ccbe349dd3.png)
+![Lab3 1 5](https://user-images.githubusercontent.com/104727697/198154804-dc19e373-f17b-4f71-85ed-ce4f2c2f28b5.png)
+
+![Train1](https://user-images.githubusercontent.com/104727697/198154795-0f1910d9-7a92-4196-8cce-c697b049646e.png)
 
 ## Задание 2
-### В разделе «ход работы» пошагово выполнить каждый пункт с описанием и примером реализации задачи по теме лабораторной работы.
-1.	Произвести подготовку данных для работы с алгоритмом линейной регрессии. 10 видов данных были установлены случайным образом, и данные находились в линейной зависимости. Данные преобразуются в формат массива, чтобы их можно было вычислить напрямую при использовании умножения и сложения.
-![Снимок02](https://user-images.githubusercontent.com/104727697/192792300-9072f864-a1f0-4d05-89ce-b4e2ce0e58fb.PNG)
-
-
-2.	Определите связанные функции. Функция модели: определяет модель линейной регрессии wx+b. Функция потерь: функция потерь среднеквадратичной ошибки. Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
-![Снимок03](https://user-images.githubusercontent.com/104727697/192792351-f56ac797-559f-4571-8b9b-49981d565d1d.PNG)
-
-3.	Начать итерацию
-- Шаг 1 Инициализация и модель итеративной оптимизации
-![Снимок1](https://user-images.githubusercontent.com/104727697/192783023-be78f754-a8a6-4989-9063-9e9478ad3742.PNG)
-
-- Шаг 2 На второй итерации отображаются значения параметров, значения потерь и эффекты визуализации после итерации
-![Снимок2](https://user-images.githubusercontent.com/104727697/192792861-a81f9872-f6f9-4deb-8603-8c1a929e2fbf.PNG)
-
-- Шаг 3 Третья итерация показывает значения параметров, значения потерь и визуализацию после итерации
-![Снимок3](https://user-images.githubusercontent.com/104727697/192792917-e7e4aa8b-3530-4fdf-8a4e-cb7363118820.PNG)
-
-- Шаг 4 На четвертой итерации отображаются значения параметров, значения потерь и эффекты визуализации
-![Снимок4](https://user-images.githubusercontent.com/104727697/192792957-4bd47588-addf-4b35-844b-a7ab1c98989b.PNG)
-
-- Шаг 5 Пятая итерация показывает значение параметра, значение потерь и эффект визуализации после итерации
-![Снимок5](https://user-images.githubusercontent.com/104727697/192793040-69aba424-762f-4045-acd2-84d0ed639b29.PNG)
-
-- Шаг 6 10000-я итерация, показывающая значения параметров, потери и визуализацию после итерации
-![Снимок6](https://user-images.githubusercontent.com/104727697/192793087-7656071b-4389-4cbb-a882-3bf8f953f205.PNG)
-
+###Подробно опишите каждую строку файла конфигурации нейронной сети, доступного в папке с файлами проекта по ссылке. Самостоятельно найдите информацию о компонентах Decision Requester, Behavior Parameters, добавленных на сфере.
+behaviors:
+RollerBall: # id
+trainer_type: ppo # Proximal Policy Optimization, режим обучения
+hyperparameters:
+batch_size: 10 # кол-во опытов на каждой итерации
+buffer_size: 100 # кол-во опыта, которое нужно набрать перед обновлением модели
+learning_rate: 3.0e-4 # начальная скорость обучения
+beta: 5.0e-4 # увеличение случайности действий
+epsilon: 0.2 # насколько быстро политика может развиваться во время обучения
+lambd: 0.99 #  насколько агент полагается на свою текущую оценку стоимости при расчете обновленной оценки стоимости
+num_epoch: 3 # количество проходов через буфер опыта, при выполнении оптимизации
+learning_rate_schedule: linear # определяет как скорость обучения изменяется с течением времени, linear линейно уменьшает скорость
+network_settings:
+normalize: false # нормализация к входным данным векторного наблюдения
+hidden_units: 128 # количество нейронов в скрытых слоях сети
+num_layers: 2 # количество скрытых слоёв в нейронной сети
+reward_signals:
+extrinsic:
+gamma: 0.99 # коэффициент дисконтирования для будущих вознаграждений
+strength: 1.0 # коэффициент на который умножается вознаграждение
+max_steps: 500000 # максимальное количество проходов
+time_horizon: 64 # временные рамки
+summary_freq: 10000 # количество опыта, который необходимо собрать перед созданием и отображением статистики
 
 ## Задание 3
-### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
+### Доработайте сцену и обучите ML-Agent таким образом, чтобы шар перемещался между двумя кубами разного цвета. Кубы должны, как и в первом задании, случайно изменять координаты на плоскости.
 
-Величина loss - это коэффициент среднеквадратичной ошибки, с каждой итерацией он стремится к нулю, так как модель постепенно "обучается". Наглядный пример — это разница в значении loss на первой и на 10000-ой итерации.
+using UnityEngine;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Actuators;
 
-1-ая итерация
-![Доки3 01](https://user-images.githubusercontent.com/104727697/192794814-d3044580-02a8-4c02-88f2-01ec0f2674b9.PNG)
+public class RollerAgent : Agent
+{
+    Rigidbody rBody;
+    void Start()
+    {
+        rBody = GetComponent<Rigidbody>();
+    }
 
-100000-ая итерация
-![Доки3 1](https://user-images.githubusercontent.com/104727697/192794833-88e0ba4d-2b23-4001-9c45-bbfda9ac39e9.PNG)
+    public GameObject Target1;
+    public GameObject Target2;
+    private bool target1Collected;
+    private bool target2Collected;
 
-### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра
+    public override void OnEpisodeBegin()
+    {
+        if (this.transform.localPosition.y < 0)
+        {
+            this.rBody.angularVelocity = Vector3.zero;
+            this.rBody.velocity = Vector3.zero;
+            this.transform.localPosition = new Vector3(0, 0.5f, 0);
+        }
+        Target1.transform.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
+        Target2.transform.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
+        Target1.SetActive(true);
+        Target2.SetActive(true);
+        target1Collected = false;
+        target2Collected = false;
+    }
 
-Lr – коэффициент, необходимый, чтобы уменьшить производные функции в различных точках a и b, это необходимо для оптимизации данных к наименьшей погрешности. При изменении переменной можно заметить, как при увеличении данные больше расходятся, а при уменьшении - сходятся
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        sensor.AddObservation(Target1.transform.localPosition);
+        sensor.AddObservation(Target2.transform.localPosition);
+        sensor.AddObservation(this.transform.localPosition);
+        sensor.AddObservation(target1Collected);
+        sensor.AddObservation(target2Collected);
+        sensor.AddObservation(rBody.velocity.x);
+        sensor.AddObservation(rBody.velocity.z);
+    }
 
-![Доки3 02](https://user-images.githubusercontent.com/104727697/192796293-ce22856b-d244-440a-a4ca-8fa6cc24511b.PNG)
-
-
-![Доки3 2](https://user-images.githubusercontent.com/104727697/192796335-9fc4628a-2b8d-45bd-8160-80470360a9c0.PNG)
+    public float forceMultiplier = 10;
+    public override void OnActionReceived(ActionBuffers actionBuffers)
+    {
+        Vector3 controlSignal = Vector3.zero;
+        controlSignal.x = actionBuffers.ContinuousActions[0];
+        controlSignal.z = actionBuffers.ContinuousActions[1];
+        rBody.AddForce(controlSignal * forceMultiplier);
+        float distanceToTarget1 = Vector3.Distance(this.transform.localPosition, Target1.transform.localPosition);
+        float distanceToTarget2 = Vector3.Distance(this.transform.localPosition, Target2.transform.localPosition);
+        if (!target1Collected & distanceToTarget1 < 1.42f)
+        {
+            target1Collected = true;
+            Target1.SetActive(false);
+        }
+        if (!target2Collected & distanceToTarget2 < 1.42f)
+        {
+            target2Collected = true;
+            Target2.SetActive(false);
+        }
+        if (target1Collected & target2Collected)
+        {
+            SetReward(1.0f);
+            EndEpisode();
+        }
+        else if (this.transform.localPosition.y < 0)
+        {
+            EndEpisode();
+        }
+    }
+}
 
 ## Выводы
 
