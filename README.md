@@ -38,28 +38,36 @@
 ## Задание 1. Написать программы Hello World на Python и Unity.
 #### -Реализовать систему машинного обучения в связке Python - Google-Sheets – Unity. При выполнении задания можно использовать видео-материалы и исходные данные, предоставленные преподавателями курса.
 
-##Ход работы:
+### Ход работы:
 
-*Установка необходимых пакетов.
+**Установка необходимых пакетов.
+
 ![image](https://user-images.githubusercontent.com/104727697/198155577-be21425d-c124-46d7-ae7d-87c0dcae629c.png)
 
-*Создание 3 объектов, присвоение им материала, добавление rigidbody и скрипта к шару.
+**Создание 3 объектов, присвоение им материала, добавление rigidbody и скрипта к шару.**
+
 ![Lab3 1 2](https://user-images.githubusercontent.com/104727697/198154792-13fd3f0f-7655-4269-8009-9c65e85a7d97.png)
 ![image](https://user-images.githubusercontent.com/104727697/198155651-cf9bb20b-e3a1-4c7a-8a21-15f0739e703c.png)
 
-*Запустк обучения MLAgent в конфигурации rollerball_config.yaml на 3,9,27 копиях ранее созданного Prefab.
-mlagents-learn rollerball_config.yaml --run-id=RollerBall --force
+
+**Запустк обучения MLAgent в конфигурации rollerball_config.yaml на 3,9,27 копиях ранее созданного Prefab.**
+
+`mlagents-learn rollerball_config.yaml --run-id=RollerBall --force`
+
 ![Lab3 1 3](https://user-images.githubusercontent.com/104727697/198154798-267a36d0-762a-421d-9048-cba17325b5fa.png)
 ![Lab3 1 4](https://user-images.githubusercontent.com/104727697/198154800-0ca20604-1ecf-4ee1-a285-d3ccbe349dd3.png)
 ![Lab3 1 5](https://user-images.githubusercontent.com/104727697/198154804-dc19e373-f17b-4f71-85ed-ce4f2c2f28b5.png)
 
+**Полученные по итогу обучения результаты**
 ![Train1](https://user-images.githubusercontent.com/104727697/198154795-0f1910d9-7a92-4196-8cce-c697b049646e.png)
 
+----
 ## Задание 2
-###Подробно опишите каждую строку файла конфигурации нейронной сети, доступного в папке с файлами проекта по ссылке. Самостоятельно найдите информацию о компонентах Decision Requester, Behavior Parameters, добавленных на сфере.
-behaviors:
-RollerBall: # id
-trainer_type: ppo # Proximal Policy Optimization, режим обучения
+### Подробно опишите каждую строку файла конфигурации нейронной сети, доступного в папке с файлами проекта по ссылке. Самостоятельно найдите информацию о компонентах Decision Requester, Behavior Parameters, добавленных на сфере.
+```
+behaviors: 
+RollerBall: # id 
+trainer_type: ppo # Proximal Policy Optimization, режим обучения 
 hyperparameters:
 batch_size: 10 # кол-во опытов на каждой итерации
 buffer_size: 100 # кол-во опыта, которое нужно набрать перед обновлением модели
@@ -80,10 +88,13 @@ strength: 1.0 # коэффициент на который умножается 
 max_steps: 500000 # максимальное количество проходов
 time_horizon: 64 # временные рамки
 summary_freq: 10000 # количество опыта, который необходимо собрать перед созданием и отображением статистики
+```
+
 
 ## Задание 3
 ### Доработайте сцену и обучите ML-Agent таким образом, чтобы шар перемещался между двумя кубами разного цвета. Кубы должны, как и в первом задании, случайно изменять координаты на плоскости.
 
+```C#
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
@@ -159,6 +170,10 @@ public class RollerAgent : Agent
         }
     }
 }
+
+
+```
+
 
 ## Выводы
 
