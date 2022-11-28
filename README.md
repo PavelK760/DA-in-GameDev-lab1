@@ -1,5 +1,5 @@
 # АНАЛИЗ ДАННЫХ И ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ [in GameDev]
-Отчет по лабораторной работе #1 выполнил:
+Отчет по лабораторной работе #3 выполнил:
 - Карабанов Павел Александрович
 - РИ210942
 Отметка о выполнении заданий (заполняется студентом):
@@ -33,68 +33,142 @@
 - ✨Magic ✨
 
 ## Цель работы
-Ознакомиться с основными операторами зыка Python на примере реализации линейной регрессии.
+Познакомиться с основными принципами работы перцептрона, научиться применять их
 
-## Задание 1. Написать программы Hello World на Python и Unity.
-### Пошагово выполнить каждый пункт раздела "ход работы" с описанием и примерами реализации задач
-#### -Для Python в отчете привести скриншоты с демонстрацией сохранения документа google.colab на свой диск с запуском программы, выводящей сообщение Hello World.
-![Снимок](https://user-images.githubusercontent.com/104727697/192782964-dbeff17e-dc74-4abd-b44c-c520d8e3009b.PNG) 
-![Снимок01](https://user-images.githubusercontent.com/104727697/192792145-9825f2bf-5780-43ee-8c36-b2c1b15dee88.PNG)
+## Задание 1. В данной лабораторной работе мы в проекте Unity рализуем перцептрон, который умеет производить вычисления:
+
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class TrainingSet
+{
+	public double[] input;
+	public double output;
+}
+
+public class Perceptron : MonoBehaviour {
+
+	public TrainingSet[] ts;
+	double[] weights = {0,0};
+	double bias = 0;
+	double totalError = 0;
+
+	double DotProductBias(double[] v1, double[] v2) 
+	{
+		if (v1 == null || v2 == null)
+			return -1;
+	 
+		if (v1.Length != v2.Length)
+			return -1;
+	 
+		double d = 0;
+		for (int x = 0; x < v1.Length; x++)
+		{
+			d += v1[x] * v2[x];
+		}
+
+		d += bias;
+	 
+		return d;
+	}
+
+	double CalcOutput(int i)
+	{
+		double dp = DotProductBias(weights,ts[i].input);
+		if(dp > 0) return(1);
+		return (0);
+	}
+
+	void InitialiseWeights()
+	{
+		for(int i = 0; i < weights.Length; i++)
+		{
+			weights[i] = Random.Range(-1.0f,1.0f);
+		}
+		bias = Random.Range(-1.0f,1.0f);
+	}
+
+	void UpdateWeights(int j)
+	{
+		double error = ts[j].output - CalcOutput(j);
+		totalError += Mathf.Abs((float)error);
+		for(int i = 0; i < weights.Length; i++)
+		{			
+			weights[i] = weights[i] + error*ts[j].input[i]; 
+		}
+		bias += error;
+	}
+
+	double CalcOutput(double i1, double i2)
+	{
+		double[] inp = new double[] {i1, i2};
+		double dp = DotProductBias(weights,inp);
+		if(dp > 0) return(1);
+		return (0);
+	}
+
+	void Train(int epochs)
+	{
+		InitialiseWeights();
+		
+		for(int e = 0; e < epochs; e++)
+		{
+			totalError = 0;
+			for(int t = 0; t < ts.Length; t++)
+			{
+				UpdateWeights(t);
+				Debug.Log("W1: " + (weights[0]) + " W2: " + (weights[1]) + " B: " + bias);
+			}
+			Debug.Log("TOTAL ERROR: " + totalError);
+            Debug.Log("TOTAL Generation: " + e);
+		}
+	}
+
+	void Start () {
+		Train(100);
+		Debug.Log("Test 0 0: " + CalcOutput(0,0));
+		Debug.Log("Test 0 1: " + CalcOutput(0,1));
+		Debug.Log("Test 1 0: " + CalcOutput(1,0));
+		Debug.Log("Test 1 1: " + CalcOutput(1,1));		
+	}
+	
+	void Update () {
+		
+	}
+}
+```
+###  * OR Перцептрон успешно обучился уже на 4 поколении
+![Снимок1](https://user-images.githubusercontent.com/104727697/204275058-03a9811b-a864-496d-aa50-cb39da50d8f4.PNG)
+
+###  * AND Перцептрон успешно обучился уже на 5 поколении
+![Снимок2](https://user-images.githubusercontent.com/104727697/204275652-df30305c-3657-4dc3-b20c-71b446bcfb5b.PNG)
+
+###  * NAND Перцептрон успешно обучился уже на 6 поколении
+![Снимок3](https://user-images.githubusercontent.com/104727697/204276147-8dc7b080-36c0-4f27-9a92-984533ceb9a8.PNG)
+
+###  * XOR Перцептрон не способен обучиться этому коду даже при 100 поколениях
+![Снимок4](https://user-images.githubusercontent.com/104727697/204271407-f2316556-c76f-465c-abb6-13044c83ab87.PNG)
+
+## Задание 2. Построить графики зависимости количества эпох от ошибки обучения. Чем больше количество эпох обучения тем меньше вероятность ошибки.Так как увеличивается количество попыток на обучение. 
+
+График зависимости количества эпох от ошибки обучения для OR:
+![Снимок5](https://user-images.githubusercontent.com/104727697/204275730-c6126a8b-e87c-4d88-bfb4-081501866dc2.PNG)
+
+График зависимости количества эпох от ошибки обучения для AND:
+![Снимок6](https://user-images.githubusercontent.com/104727697/204275972-2cab5313-77da-479f-a64b-8bf72d53d12f.PNG)
+
+График зависимости количества эпох от ошибки обучения для NAND:
+![Снимок7](https://user-images.githubusercontent.com/104727697/204276564-28c20fa6-826f-41b4-9f99-5a10d24de6c9.PNG)
+
+График зависимости количества эпох от ошибки обучения для XOR:
+![Снимок8](https://user-images.githubusercontent.com/104727697/204277243-c8b06735-5120-4e3d-b683-8c3f37f8159c.PNG)
 
 
-#### - Для Unity  в отчете привести скришноты вывода сообщения Hello World в консоль. 
-![Снимок04](https://user-images.githubusercontent.com/104727697/192791649-6f509bf4-cc79-4e93-afec-3e96f53b376f.png)
-![Снимок05](https://user-images.githubusercontent.com/104727697/192793653-59b5f73a-61b6-499b-8e73-03b5b4ceafef.png)
-
-
-## Задание 2
-### В разделе «ход работы» пошагово выполнить каждый пункт с описанием и примером реализации задачи по теме лабораторной работы.
-1.	Произвести подготовку данных для работы с алгоритмом линейной регрессии. 10 видов данных были установлены случайным образом, и данные находились в линейной зависимости. Данные преобразуются в формат массива, чтобы их можно было вычислить напрямую при использовании умножения и сложения.
-![Снимок02](https://user-images.githubusercontent.com/104727697/192792300-9072f864-a1f0-4d05-89ce-b4e2ce0e58fb.PNG)
-
-
-2.	Определите связанные функции. Функция модели: определяет модель линейной регрессии wx+b. Функция потерь: функция потерь среднеквадратичной ошибки. Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
-![Снимок03](https://user-images.githubusercontent.com/104727697/192792351-f56ac797-559f-4571-8b9b-49981d565d1d.PNG)
 
 3.	Начать итерацию
-- Шаг 1 Инициализация и модель итеративной оптимизации
-![Снимок1](https://user-images.githubusercontent.com/104727697/192783023-be78f754-a8a6-4989-9063-9e9478ad3742.PNG)
-
-- Шаг 2 На второй итерации отображаются значения параметров, значения потерь и эффекты визуализации после итерации
-![Снимок2](https://user-images.githubusercontent.com/104727697/192792861-a81f9872-f6f9-4deb-8603-8c1a929e2fbf.PNG)
-
-- Шаг 3 Третья итерация показывает значения параметров, значения потерь и визуализацию после итерации
-![Снимок3](https://user-images.githubusercontent.com/104727697/192792917-e7e4aa8b-3530-4fdf-8a4e-cb7363118820.PNG)
-
-- Шаг 4 На четвертой итерации отображаются значения параметров, значения потерь и эффекты визуализации
-![Снимок4](https://user-images.githubusercontent.com/104727697/192792957-4bd47588-addf-4b35-844b-a7ab1c98989b.PNG)
-
-- Шаг 5 Пятая итерация показывает значение параметра, значение потерь и эффект визуализации после итерации
-![Снимок5](https://user-images.githubusercontent.com/104727697/192793040-69aba424-762f-4045-acd2-84d0ed639b29.PNG)
-
-- Шаг 6 10000-я итерация, показывающая значения параметров, потери и визуализацию после итерации
-![Снимок6](https://user-images.githubusercontent.com/104727697/192793087-7656071b-4389-4cbb-a882-3bf8f953f205.PNG)
-
-
-## Задание 3
-### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
-
-Величина loss - это коэффициент среднеквадратичной ошибки, с каждой итерацией он стремится к нулю, так как модель постепенно "обучается". Наглядный пример — это разница в значении loss на первой и на 10000-ой итерации.
-
-1-ая итерация
-![Доки3 01](https://user-images.githubusercontent.com/104727697/192794814-d3044580-02a8-4c02-88f2-01ec0f2674b9.PNG)
-
-100000-ая итерация
-![Доки3 1](https://user-images.githubusercontent.com/104727697/192794833-88e0ba4d-2b23-4001-9c45-bbfda9ac39e9.PNG)
-
-### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра
-
-Lr – коэффициент, необходимый, чтобы уменьшить производные функции в различных точках a и b, это необходимо для оптимизации данных к наименьшей погрешности. При изменении переменной можно заметить, как при увеличении данные больше расходятся, а при уменьшении - сходятся
-
-![Доки3 02](https://user-images.githubusercontent.com/104727697/192796293-ce22856b-d244-440a-a4ca-8fa6cc24511b.PNG)
-
-
-![Доки3 2](https://user-images.githubusercontent.com/104727697/192796335-9fc4628a-2b8d-45bd-8160-80470360a9c0.PNG)
 
 ## Выводы
 
