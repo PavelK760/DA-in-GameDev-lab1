@@ -172,6 +172,22 @@ public class Perceptron : MonoBehaviour {
 
 Для начала я создал новый скрипт, который прикрепил к кубикам. Он отвечает за смену цвета объекта при касании другого. 0 - жёлтый цвет 1 - зелёный цвет. Каждая сцена приведена в виде 2-х скриншотов: в момент начала движения кубиков и в момент их соприкосновения. Как можно увижеть ниже, все они меняют цвет соответственно в зависимости от фкнкции
 
+```C#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChangeColor : MonoBehaviour
+{
+    public Color color;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.gameObject.GetComponent<Renderer>().material.color = this.color;
+    }
+}
+```
+
 #Модель OR:
 В момент начала движения 
 ![СнимокOR](https://user-images.githubusercontent.com/104727697/204582328-0f5d7da8-c62f-4a77-9003-1995b4f90203.PNG)
